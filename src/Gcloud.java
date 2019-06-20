@@ -13,13 +13,38 @@ import com.google.cloud.language.v1.LanguageServiceClient;
 import com.google.cloud.language.v1.Sentiment;
 import com.google.cloud.language.v1.Token;
 
-public class gcloud {
-	public static void main(String... args) throws Exception {
+public class Gcloud {
+	
+	private float sentiment;
+	private float magnitude;
+	private String result;
+	
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public float getSentiment() {
+		return sentiment;
+	}
+	public void setSentiment(float sentiment) {
+		this.sentiment = sentiment;
+	}
+	public float getMagnitude() {
+		return magnitude;
+	}
+	public void setMagnitude(float magnitude) {
+		this.magnitude = magnitude;
+	}
+	public static Gcloud GetTextSentiment(String input) throws Exception {
+		Gcloud gcloud = new Gcloud();
+		String output= new String();
 		// GoogleCredential credential = GoogleCredential.getApplicationDefault();
 		// Instantiates a client
 		try (LanguageServiceClient language = LanguageServiceClient.create()) {
 			// The text to analyze
-			String text = "Vai dar o cu";
+			String text = input;
 			Document doc = Document.newBuilder().setContent(text).setType(Type.PLAIN_TEXT).build();
 
 			// Detects the sentiment of the text
@@ -32,21 +57,24 @@ public class gcloud {
 
 			// Print the response
 			for (Entity entity : response.getEntitiesList()) {
-				System.out.printf("Entity: %s\n", entity.getName());
-				System.out.printf("Salience: %.3f\n", entity.getSalience());
-				System.out.println("Metadata: ");
+				output += "\nEntity: " + entity.getName() ;
+				output += "\nSalience: %.3f\n" + entity.getSalience();
+				output += "\nMetadata: ";
 				for (Map.Entry<String, String> entry : entity.getMetadataMap().entrySet()) {
-					System.out.printf("%s : %s", entry.getKey(), entry.getValue());
+					output += "\n%s : %s\n" + entry.getKey() + entry.getValue();
 				}
 				for (EntityMention mention : entity.getMentionsList()) {
-					System.out.printf("Begin offset: %d\n", mention.getText().getBeginOffset());
-					System.out.printf("Content: %s\n", mention.getText().getContent());
-					System.out.printf("Type: %s\n\n", mention.getType());
+					output += "Begin offset: %d\n" + mention.getText().getBeginOffset();
+					output += "Content: %s\n" + mention.getText().getContent();
+					output += "Type: %s\n\n" + mention.getType();
 				}
 			}
-
-			System.out.printf("Text: %s%n", text);
+			
+			
+			output += "Text: %n" + text;
 			System.out.printf("Sentiment: %s, %s%n", sentiment.getScore(), sentiment.getMagnitude());
+			gcloud.setSentiment(sentiment.getScore());
+			gcloud.setMagnitude(sentiment.getMagnitude());
 
 			AnalyzeSyntaxRequest request2 = AnalyzeSyntaxRequest.newBuilder().setDocument(doc)
 					.setEncodingType(EncodingType.UTF16).build();
@@ -83,5 +111,7 @@ public class gcloud {
 //						category.getConfidence());
 //			}
 		}
+		gcloud.setResult(output);
+		return gcloud;
 	}
 }

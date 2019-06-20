@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screenController">
+   <children>
+      <AnchorPane layoutX="-6.0" prefHeight="218.0" prefWidth="1038.0" style="-fx-background-color: #FE2E9A;">
+         <children>
+            <Text fill="WHITE" fontSmoothingType="LCD" layoutX="184.0" layoutY="130.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Fact-Checking">
+               <font>
+                  <Font name="Serif Regular" size="86.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text layoutX="282.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Digite o texto que deseja verificar">
+         <font>
+            <Font name="FiraCode-Light" size="22.0" />
+         </font>
+      </Text>
+      <JFXTextArea fx:id="text_area" focusColor="#0040ff" layoutX="198.0" layoutY="284.0" prefHeight="281.0" prefWidth="633.0" promptText="DIGITE AQUI" style="-fx-background-color: #edebe3;" unFocusColor="#a41515">
+         <font>
+            <Font size="19.0" />
+         </font></JFXTextArea>
+      <JFXButton fx:id="btn_verificar" layoutX="851.0" layoutY="515.0" onAction="#funcao_verificar" prefHeight="50.0" prefWidth="140.0" ripplerFill="WHITE" style="-fx-background-color: #FE2E9A;" text="Verificar" textFill="WHITE">
+         <font>
+            <Font name="DejaVu Sans ExtraLight" size="22.0" />
+         </font>
+      </JFXButton>
+      <JFXSlider fx:id="slider" layoutX="198.0" layoutY="644.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="633.0" value="50.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXSlider>
+      <Text fill="RED" fontSmoothingType="LCD" layoutX="80.0" layoutY="659.0" strokeLineCap="BUTT" strokeType="OUTSIDE" text="Fake" textAlignment="CENTER" wrappingWidth="60.9404296875">
+         <font>
+            <Font name="FiraCode-Light" size="23.0" />
+         </font>
+      </Text>
+      <Text fill="#39b52b" fontSmoothingType="LCD" layoutX="845.0" layoutY="659.0" strokeLineCap="BUTT" strokeType="OUTSIDE" text="Verdadeiro" textAlignment="CENTER" wrappingWidth="151.9404296875">
+         <font>
+            <Font name="FiraCode-Light" size="23.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
